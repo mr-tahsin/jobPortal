@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV Bank - Advanced ATS</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #eef4ff;
+        color: #1f2a44;
+      }
+
+      /* TOP BAR */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        background: linear-gradient(135deg, #0f172a, #2563eb);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .search {
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        width: 200px;
+      }
+
+      /* LAYOUT */
+      .container {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        background: #fff;
+        padding: 15px;
+        border-right: 1px solid #e5eaf2;
+        min-height: 100vh;
+      }
+      .sidebar input,
+      .sidebar select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        border: 1px solid #dbeafe;
+        border-radius: 8px;
+      }
+      .btn {
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: #2563eb;
+        color: #fff;
+        margin-top: 10px;
+        cursor: pointer;
+        width: 100%;
+      }
+      .reset {
+        background: #dc2626;
+      }
+
+      /* CHART */
+      .chart-box {
+        margin-top: 15px;
+        background: #f8fbff;
+        border: 1px solid #dbeafe;
+        padding: 12px;
+        border-radius: 12px;
+      }
+      .bar {
+        height: 8px;
+        border-radius: 20px;
+        background: #e5e7eb;
+        margin-bottom: 8px;
+      }
+      .fill {
+        height: 8px;
+        border-radius: 20px;
+      }
+      .excellent {
+        width: 100%;
+        background: #16a34a;
+      }
+      .best {
+        width: 75%;
+        background: #3b82f6;
+      }
+      .good {
+        width: 50%;
+        background: #f59e0b;
+      }
+      .avg {
+        width: 30%;
+        background: #dc2626;
+      }
+
+      /* MAIN */
+      .main {
+        padding: 15px;
+      }
+
+      /* TABLE */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      th,
+      td {
+        padding: 10px;
+        font-size: 12px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+      }
+      th {
+        background: #eff6ff;
+      }
+
+      .badge {
+        padding: 4px 8px;
+        border-radius: 20px;
+        color: #fff;
+        font-size: 11px;
+      }
+      .a {
+        background: #16a34a;
+      }
+      .b {
+        background: #f59e0b;
+      }
+      .c {
+        background: #3b82f6;
+      }
+      .d {
+        background: #dc2626;
+      }
+
+      .skill-pill {
+        display: inline-block;
+        padding: 4px 8px;
+        margin: 2px;
+        background: #dbeafe;
+        border-radius: 20px;
+        font-size: 11px;
+        cursor: pointer;
+      }
+
+      .actions button {
+        margin: 2px;
+        padding: 5px 7px;
+        font-size: 11px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #fff;
+      }
+      .view {
+        background: #2563eb;
+      }
+      .short {
+        background: #16a34a;
+      }
+      .reject {
+        background: #dc2626;
+      }
+      .block {
+        background: #111827;
+      }
+      .save {
+        background: #f59e0b;
+      }
+
+      .pagination {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+      }
+
+      /* POPUP */
+      .popup-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .popup {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        width: 320px;
+        text-align: center;
+      }
+
+      .popup button {
+        margin-top: 8px;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .fraud {
+        background: #dc2626;
+        color: white;
+      }
+      .fake {
+        background: #f59e0b;
+        color: white;
+      }
+      .mis {
+        background: #3b82f6;
+        color: white;
+      }
+      .cancel {
+        background: #111827;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- TOP BANNER -->
+    <a
+      href="index.html"
+      style="
+        text-decoration: none;
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      "
+    >
+      <div
+        style="
+          background: linear-gradient(135deg, #0f172a, #2563eb);
+          padding: 16px 20px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+          cursor: pointer;
+          transition: 0.3s;
+        "
+      >
+        <div
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #2563eb;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+          "
+        >
+          <span style="font-size: 16px">⬆</span>
+          <span>Back to Home</span>
+        </div>
+      </div>
+    </a>
+
+    <div class="topbar">
+      <div><b>CV BANK ATS</b></div>
+      <input class="search" placeholder="Search..." />
+    </div>
+
+    <div class="container">
+      <div class="sidebar">
+        <h4>Filters</h4>
+
+        <input id="search" placeholder="Search Name / ID" />
+
+        <select id="dept">
+          <option value="">Department</option>
+          <option>IT</option>
+          <option>HR</option>
+          <option>Accounts</option>
+          <option>Marketing</option>
+        </select>
+
+        <select id="gender">
+          <option value="">Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+
+        <select id="status">
+          <option value="">Status</option>
+          <option>Available</option>
+          <option>Shortlisted</option>
+          <option>Rejected</option>
+          <option>Blocked</option>
+        </select>
+
+        <select id="layer">
+          <option value="">Layer</option>
+          <option>First Layer</option>
+          <option>Second Layer</option>
+          <option>Third Layer</option>
+        </select>
+
+        <input id="skillFilter" placeholder="Skill (click pills below)" />
+
+        <button class="btn" onclick="applyFilter()">Apply Filter</button>
+        <button class="btn reset" onclick="resetFilter()">Reset</button>
+
+        <div class="chart-box">
+          <b>Scoring System</b>
+
+          <p style="font-size: 11px">Excellent (91–100)</p>
+          <div class="bar"><div class="fill excellent"></div></div>
+
+          <p style="font-size: 11px">Best (68–90)</p>
+          <div class="bar"><div class="fill best"></div></div>
+
+          <p style="font-size: 11px">Good (34–67)</p>
+          <div class="bar"><div class="fill good"></div></div>
+
+          <p style="font-size: 11px">Average (10–33)</p>
+          <div class="bar"><div class="fill avg"></div></div>
+        </div>
+      </div>
+
+      <div class="main">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th><input type="checkbox" onclick="toggleAll(this)" /></th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Applied Role</th>
+              <th>Gender</th>
+              <th>Dept</th>
+              <th>Skills</th>
+              <th>Marks</th>
+              <th>Grade</th>
+              <th>Layer</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="body"></tbody>
+        </table>
+
+        <div class="pagination">
+          <div id="info"></div>
+          <div>
+            <button onclick="prev()">Prev</button>
+            <button onclick="next()">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup-bg" id="popup">
+      <div class="popup">
+        <h4>Select Blacklist Reason</h4>
+
+        <button class="fraud" onclick="confirmBlock('Fraud Activity')">
+          Fraud Activity
+        </button>
+        <button class="fake" onclick="confirmBlock('Fake CV')">Fake CV</button>
+        <button class="mis" onclick="confirmBlock('Misconduct')">
+          Misconduct
+        </button>
+        <button class="cancel" onclick="closePopup()">Cancel</button>
+      </div>
+    </div>
+
+    <script>
+      let page = 1;
+      const perPage = 10;
+      let selectedUser = null;
+
+      const names = [
+        "Arif Hossain",
+        "Nusrat Jahan",
+        "Tanvir Ahmed",
+        "Sadia Islam",
+        "Imran Khan",
+      ];
+
+      let data = [];
+
+      for (let i = 1; i < 60; i++) {
+        data.push({
+          id: 2026052400 + i,
+          name: names[i % names.length],
+          role: [
+            "Software Engineer",
+            "HR Officer",
+            "Data Analyst",
+            "Accountant",
+          ][i % 4],
+          gender: i % 2 ? "Male" : "Female",
+          dept: ["IT", "HR", "Accounts", "Marketing"][i % 4],
+          skills: [
+            ["JavaScript", "React"],
+            ["SQL", "Excel"],
+            ["HRMS", "Recruitment"],
+            ["Power BI"],
+          ][i % 4],
+          marks: Math.floor(Math.random() * 100),
+          layer: "First Layer",
+          status: ["Available", "Shortlisted", "Rejected", "Blocked"][i % 4],
+          date: "2026-05-" + (10 + (i % 20)).toString().padStart(2, "0"),
+        });
+      }
+
+      function grade(m) {
+        if (m >= 91) return ["Excellent", "a"];
+        if (m >= 68) return ["Best", "c"];
+        if (m >= 34) return ["Good", "b"];
+        return ["Average", "d"];
+      }
+
+      /* ✅ FIXED REAL TIME MARKS */
+      function updateMark(index, value) {
+        data[index].marks = Number(value);
+        render();
+      }
+
+      function openBlockPopup(index) {
+        selectedUser = index;
+        document.getElementById("popup").style.display = "flex";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        selectedUser = null;
+      }
+
+      function confirmBlock(reason) {
+        alert("User blocked for: " + reason);
+        closePopup();
+      }
+
+      function render() {
+        let tbody = document.getElementById("body");
+        tbody.innerHTML = "";
+
+        let start = (page - 1) * perPage;
+        let pageData = data.slice(start, start + perPage);
+
+        pageData.forEach((d, i) => {
+          let g = grade(d.marks);
+
+          tbody.innerHTML += `
+<tr>
+<td><input type="checkbox"></td>
+<td>${d.id}</td>
+<td>${d.name}</td>
+<td>${d.role}</td>
+<td>${d.gender}</td>
+<td>${d.dept}</td>
+<td>${d.skills.map((s) => `<span class='skill-pill'>${s}</span>`).join("")}</td>
+
+<td>
+<input type="number"
+value="${d.marks}"
+oninput="updateMark(${start + i}, this.value)">
+</td>
+
+<td><span class="badge ${g[1]}">${g[0]}</span></td>
+<td>
+<select>
+<option selected>${d.layer}</option>
+<option>Second Layer</option>
+<option>Third Layer</option>
+</select>
+</td>
+<td>${d.status}</td>
+<td>${d.date}</td>
+
+<td class="actions">
+
+<a href="#"><button class="view">View CV</button></a>
+<a href="1.6.1. interview_evaluation_scoring.html"><button class="save">View Full Report</button></a>
+<button class="short">Shortlist</button>
+<button class="reject">Reject</button>
+<button class="block" onclick="openBlockPopup(${start + i})">Blacklist</button>
+
+</td>
+</tr>
+`;
+        });
+
+        document.getElementById("info").innerText =
+          `Page ${page} / ${Math.ceil(data.length / perPage)}`;
+      }
+
+      function next() {
+        page++;
+        render();
+      }
+      function prev() {
+        if (page > 1) page--;
+        render();
+      }
+
+      render();
+    </script>
+  </body>
+</html>

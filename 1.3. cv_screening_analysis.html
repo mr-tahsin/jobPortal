@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, sans-serif;
+      background: #eef4ff;
+      color: #1f2a44;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      display: grid;
+      grid-template-columns: 1fr;
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* LEFT SIDE */
+    .left {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .left h1 {
+      font-size: 34px;
+      margin-bottom: 15px;
+    }
+
+    .left p {
+      font-size: 15px;
+      line-height: 1.7;
+      opacity: 0.92;
+    }
+
+    .feature-box {
+      margin-top: 30px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .feature {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 14px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+
+    .feature h3 {
+      margin: 0 0 5px 0;
+      font-size: 15px;
+    }
+
+    .feature small {
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    /* RIGHT SIDE */
+    .right {
+      padding: 40px;
+      background: white;
+    }
+
+    .top-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      background: #eff6ff;
+      color: #1e3a8a;
+    }
+
+    .tab.active {
+      background: #2563eb;
+      color: white;
+    }
+
+    .form-section {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #dbe3f0;
+      border-radius: 10px;
+      font-size: 14px;
+      background: #f9fbff;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .role-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .role {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #dbe3f0;
+      border-radius: 10px;
+      font-size: 12px;
+      background: #f9fbff;
+      cursor: pointer;
+    }
+
+    .role.active {
+      background: #dbeafe;
+      border-color: #2563eb;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #1e40af;
+    }
+
+    .bottom-links {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .bottom-links a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .security {
+      margin-top: 25px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #eff6ff;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 950px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .left {
+        display: none;
+      }
+
+      .right > div {
+        grid-template-columns: 1fr !important;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .role-box {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <body>
+    <!-- TOP BANNER -->
+
+    <!-- ====================================================== -->
+    <!-- RESUME AND PROFILE MATCHING PAGE DESIGN -->
+    <!-- ====================================================== -->
+
+    <div style="background: #eef4ff; padding: 40px 20px">
+      <a
+        href="index.html"
+        style="
+          text-decoration: none;
+          display: block;
+          position: sticky;
+          top: 0;
+          z-index: 999;
+        "
+      >
+        <div
+          style="
+            background: linear-gradient(135deg, #0f172a, #2563eb);
+            padding: 16px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: 0.3s;
+          "
+        >
+          <div
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              background: white;
+              color: #2563eb;
+              padding: 12px 28px;
+              border-radius: 40px;
+              font-weight: 700;
+              font-size: 14px;
+              box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+            "
+          >
+            <span style="font-size: 16px">⬆</span>
+            <span>Back to Home</span>
+          </div>
+        </div>
+      </a>
+      <div
+        style="
+          max-width: 1400px;
+          margin: auto;
+          background: white;
+          border-radius: 18px;
+          overflow: hidden;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+          display: grid;
+          grid-template-columns: 320px 1fr;
+        "
+      >
+        <!-- LEFT MATCH SUMMARY -->
+        <div
+          style="
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 30px;
+          "
+        >
+          <h2 style="margin-top: 0">Resume & Profile Matching</h2>
+
+          <p style="line-height: 1.7; font-size: 14px; opacity: 0.92">
+            The ATS system automatically compares applicant profiles and
+            uploaded resumes with job requirements to calculate matching
+            percentages.
+          </p>
+
+          <div style="margin-top: 25px; display: grid; gap: 15px">
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.12);
+                padding: 14px;
+                border-radius: 10px;
+              "
+            >
+              <b>Total Skills Matched</b><br />
+              <small>8 out of 10 skills matched</small>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.12);
+                padding: 14px;
+                border-radius: 10px;
+              "
+            >
+              <b>Experience Match</b><br />
+              <small>4 years matched with required experience</small>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.12);
+                padding: 14px;
+                border-radius: 10px;
+              "
+            >
+              <b>Overall Match Score</b><br />
+              <small>88% Compatibility</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT MAIN CONTENT -->
+        <div style="padding: 35px">
+          <h2 style="margin-top: 0; color: #1e3a8a">
+            Candidate Matching Analysis
+          </h2>
+
+          <!-- JOB DETAILS -->
+          <div
+            style="
+              background: #f9fbff;
+              border: 1px solid #dbeafe;
+              padding: 18px;
+              border-radius: 12px;
+              margin-bottom: 20px;
+            "
+          >
+            <h3 style="margin-top: 0; color: #2563eb">Job Requirement</h3>
+
+            <div class="row">
+              <div class="form-section">
+                <label>Job Position</label>
+                <input class="input" type="text" value="MIS Executive" />
+              </div>
+
+              <div class="form-section">
+                <label>Required Experience</label>
+                <input class="input" type="text" value="Minimum 3 Years" />
+              </div>
+            </div>
+
+            <div class="form-section">
+              <label>Required Skills</label>
+              <input
+                class="input"
+                type="text"
+                value="Excel, SQL, ERP, Power BI"
+              />
+            </div>
+          </div>
+
+          <!-- MATCHING RESULT -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
+            <div
+              style="
+                background: #f9fbff;
+                border: 1px solid #e5eaf2;
+                padding: 18px;
+                border-radius: 12px;
+              "
+            >
+              <h3 style="margin-top: 0; color: #1e3a8a">Resume Information</h3>
+
+              <p><b>Candidate Name:</b> John Doe</p>
+              <p><b>Experience:</b> 4 Years</p>
+              <p><b>Education:</b> BBA in MIS</p>
+              <p><b>Skills Found:</b> Excel, SQL, ERP</p>
+              <p><b>Resume Status:</b> Uploaded Successfully</p>
+            </div>
+
+            <div
+              style="
+                background: #f9fbff;
+                border: 1px solid #e5eaf2;
+                padding: 18px;
+                border-radius: 12px;
+              "
+            >
+              <h3 style="margin-top: 0; color: #1e3a8a">Matching Result</h3>
+
+              <p><b>Skill Matching:</b> 80%</p>
+              <p><b>Experience Matching:</b> 100%</p>
+              <p><b>Education Matching:</b> 90%</p>
+              <p><b>Keyword Detection:</b> ERP, SQL, Excel</p>
+              <p>
+                <b>Final Compatibility Score:</b>
+                <span style="color: #16a34a; font-weight: 700">88%</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- MATCH TABLE -->
+          <div style="margin-top: 25px">
+            <h3 style="color: #1e3a8a">Skill-by-Skill Matching</h3>
+
+            <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                background: white;
+                border-radius: 10px;
+                overflow: hidden;
+              "
+            >
+              <tr style="background: #eff6ff">
+                <th style="padding: 12px; text-align: left; font-size: 12px">
+                  Required Skill
+                </th>
+                <th style="padding: 12px; text-align: left; font-size: 12px">
+                  Candidate Skill
+                </th>
+                <th style="padding: 12px; text-align: left; font-size: 12px">
+                  Status
+                </th>
+              </tr>
+
+              <tr>
+                <td style="padding: 12px; border-bottom: 1px solid #eef2f7">
+                  Excel
+                </td>
+                <td style="padding: 12px; border-bottom: 1px solid #eef2f7">
+                  Available
+                </td>
+                <td
+                  style="
+                    padding: 12px;
+                    border-bottom: 1px solid #eef2f7;
+                    color: #16a34a;
+                    font-weight: 600;
+                  "
+                >
+                  Matched
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding: 12px; border-bottom: 1px solid #eef2f7">
+                  SQL
+                </td>
+                <td style="padding: 12px; border-bottom: 1px solid #eef2f7">
+                  Available
+                </td>
+                <td
+                  style="
+                    padding: 12px;
+                    border-bottom: 1px solid #eef2f7;
+                    color: #16a34a;
+                    font-weight: 600;
+                  "
+                >
+                  Matched
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding: 12px; border-bottom: 1px solid #eef2f7">
+                  Power BI
+                </td>
+                <td style="padding: 12px; border-bottom: 1px solid #eef2f7">
+                  Not Found
+                </td>
+                <td
+                  style="
+                    padding: 12px;
+                    border-bottom: 1px solid #eef2f7;
+                    color: #dc2626;
+                    font-weight: 600;
+                  "
+                >
+                  Not Matched
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <button class="btn" style="margin-top: 25px">
+            Proceed for Shortlisting
+          </button>
+
+          <div class="security">
+            <b>Developer Notes:</b><br />
+            - Resume data should be extracted automatically from uploaded CV<br />
+            - System should compare resume data with job requirement keywords<br />
+            - Matching percentage should be auto-calculated based on skills,
+            education, and experience<br />
+            - Final score will help HR shortlist candidates quickly
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

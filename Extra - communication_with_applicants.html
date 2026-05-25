@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Communication with Applicants - ATS Email Module</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: #f4f7fb;
+        color: #1f2a44;
+      }
+
+      /* TOP BAR */
+      .header {
+        background: #1e3a8a;
+        color: white;
+        padding: 14px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .header small {
+        opacity: 0.8;
+      }
+
+      /* LAYOUT */
+      .container {
+        display: grid;
+        grid-template-columns: 260px 320px 1fr;
+        min-height: calc(100vh - 52px);
+      }
+
+      /* FILTER SIDEBAR */
+      .sidebar {
+        background: white;
+        padding: 15px;
+        border-right: 1px solid #e5eaf2;
+        overflow-y: auto;
+      }
+
+      .sidebar h3 {
+        margin-top: 0;
+      }
+
+      .input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 9px;
+        border: 1px solid #dbe3f0;
+        border-radius: 8px;
+        margin-top: 5px;
+        font-size: 13px;
+      }
+
+      .btn {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        margin-top: 10px;
+      }
+
+      .btn:hover {
+        background: #1e40af;
+      }
+
+      /* APPLICANT LIST */
+      .list {
+        background: white;
+        border-right: 1px solid #e5eaf2;
+        overflow-y: auto;
+      }
+
+      .list h3 {
+        padding: 15px;
+        margin: 0;
+        border-bottom: 1px solid #eef2f7;
+      }
+
+      .applicant {
+        padding: 12px 15px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .applicant:hover {
+        background: #eff6ff;
+      }
+
+      .applicant small {
+        display: block;
+        color: #6b7280;
+        font-size: 12px;
+      }
+
+      .checkbox {
+        margin-right: 8px;
+      }
+
+      .badge {
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 5px;
+        color: white;
+      }
+
+      .active {
+        background: #2563eb;
+      }
+      .sent {
+        background: #16a34a;
+      }
+      pending {
+        background: #f59e0b;
+      }
+
+      /* MAIN EMAIL PANEL */
+      .main {
+        background: white;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        padding: 12px;
+        border-bottom: 1px solid #eef2f7;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+        color: white;
+      }
+
+      .single {
+        background: #3b82f6;
+      }
+      .bulk {
+        background: #1d4ed8;
+      }
+      template {
+        background: #6366f1;
+      }
+      preview {
+        background: #0ea5e9;
+      }
+
+      /* EMAIL COMPOSE */
+      .compose {
+        padding: 15px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .compose input,
+      .compose textarea,
+      .compose select {
+        padding: 10px;
+        border: 1px solid #dbe3f0;
+        border-radius: 8px;
+        font-size: 13px;
+      }
+
+      textarea {
+        height: 180px;
+        resize: none;
+      }
+
+      .send {
+        background: #16a34a;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      /* SUMMARY PANEL */
+      .summary {
+        padding: 15px;
+        border-top: 1px solid #eef2f7;
+        background: #f9fbff;
+        font-size: 12px;
+      }
+
+      .summary b {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1000px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+        .sidebar,
+        .list {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Communication with Applicants</h2>
+      <small>Email-Only ATS Module</small>
+    </div>
+
+    <div class="container">
+      <!-- FILTER -->
+      <div class="sidebar">
+        <h3>Filters</h3>
+
+        <label>Search Applicant</label>
+        <input class="input" placeholder="Name / Email" />
+
+        <label>Category</label>
+        <select>
+          <option>All</option>
+          <option>Shortlisted</option>
+          <option>Rejected</option>
+          <option>Interview Stage</option>
+          <option>New Applicants</option>
+        </select>
+
+        <label>Email Status</label>
+        <select>
+          <option>All</option>
+          <option>Not Sent</option>
+          <option>Sent</option>
+          <option>Opened</option>
+        </select>
+
+        <button class="btn">Apply Filter</button>
+      </div>
+
+      <!-- APPLICANT LIST -->
+      <div class="list">
+        <h3>Applicants</h3>
+
+        <div class="applicant">
+          <div>
+            <input type="checkbox" class="checkbox" />
+            <b>John Doe</b>
+            <small>Software Engineer</small>
+          </div>
+          <span class="badge active">Selected</span>
+        </div>
+
+        <div class="applicant">
+          <div>
+            <input type="checkbox" class="checkbox" />
+            <b>Sarah Khan</b>
+            <small>MIS Executive</small>
+          </div>
+          <span class="badge sent">Sent</span>
+        </div>
+
+        <div class="applicant">
+          <div>
+            <input type="checkbox" class="checkbox" />
+            <b>Rahim Uddin</b>
+            <small>HR Officer</small>
+          </div>
+          <span class="badge active">Selected</span>
+        </div>
+      </div>
+
+      <!-- EMAIL PANEL -->
+      <div class="main">
+        <div class="top-actions">
+          <button class="action-btn single">Single Email</button>
+          <button class="action-btn bulk">Bulk Email</button>
+          <button class="action-btn template">Email Template</button>
+          <button class="action-btn preview">Preview</button>
+        </div>
+
+        <div class="compose">
+          <label>Subject</label>
+          <input type="text" placeholder="Enter email subject" />
+
+          <label>Email Template Type</label>
+          <select>
+            <option>General Update</option>
+            <option>Interview Invitation</option>
+            <option>Rejection Notice</option>
+            <option>Shortlist Confirmation</option>
+          </select>
+
+          <label>Message</label>
+          <textarea placeholder="Write your email content here..."></textarea>
+
+          <button class="send">Send Email</button>
+        </div>
+
+        <div class="summary">
+          <b>Send Mode:</b> Single / Bulk (based on selected applicants)
+          <b>Delivery Type:</b> Email Only (No SMS / Phone Integration)
+          <b>Selection Logic:</b> Based on category filter + checkbox selection
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

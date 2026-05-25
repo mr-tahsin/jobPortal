@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MASCO Career Portal - All Jobs</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        background: #eef4ff;
+        color: #1e293b;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      /* TOP NAV */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        background: linear-gradient(135deg, #0f172a, #2563eb);
+        padding: 16px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+      }
+
+      .logo {
+        color: white;
+      }
+
+      .logo h1 {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .logo p {
+        margin: 4px 0 0;
+        font-size: 12px;
+        opacity: 0.85;
+      }
+
+      .nav-btn {
+        background: white;
+        color: #2563eb;
+        padding: 12px 22px;
+        border-radius: 40px;
+        font-size: 14px;
+        font-weight: 700;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      /* HERO */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.95),
+          rgba(37, 99, 235, 0.9)
+        );
+        padding: 70px 30px;
+        color: white;
+        text-align: center;
+      }
+
+      .hero h2 {
+        margin: 0;
+        font-size: 48px;
+        font-weight: 800;
+      }
+
+      .hero p {
+        margin-top: 18px;
+        font-size: 16px;
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.8;
+        opacity: 0.95;
+      }
+
+      /* SEARCH AREA */
+      .search-section {
+        background: white;
+        margin: -40px auto 30px;
+        width: calc(100% - 40px);
+        max-width: 1250px;
+        border-radius: 24px;
+        padding: 25px;
+        box-shadow: 0 15px 40px rgba(37, 99, 235, 0.12);
+      }
+
+      .search-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 15px;
+      }
+
+      .search-grid input,
+      .search-grid select {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #dbeafe;
+        border-radius: 14px;
+        background: #f8fbff;
+        font-size: 14px;
+      }
+
+      .search-btn {
+        background: linear-gradient(135deg, #2563eb, #1e3a8a);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      /* MAIN */
+      .main-container {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 25px;
+        padding: 0 20px 40px;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        background: white;
+        border-radius: 22px;
+        padding: 22px;
+        height: fit-content;
+        box-shadow: 0 10px 28px rgba(37, 99, 235, 0.08);
+      }
+
+      .sidebar h3 {
+        margin-top: 0;
+        color: #1e3a8a;
+        font-size: 20px;
+      }
+
+      .filter-title {
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 22px;
+        margin-bottom: 10px;
+      }
+
+      .category {
+        padding: 12px 14px;
+        background: #f8fbff;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid transparent;
+      }
+
+      .category:hover {
+        background: #dbeafe;
+        border-color: #2563eb;
+      }
+
+      /* JOB AREA */
+      .jobs-area {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .top-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+
+      .stat-box {
+        background: white;
+        padding: 24px;
+        border-radius: 22px;
+        box-shadow: 0 10px 28px rgba(37, 99, 235, 0.08);
+      }
+
+      .stat-box h2 {
+        margin: 0;
+        color: #2563eb;
+        font-size: 32px;
+      }
+
+      .stat-box p {
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 13px;
+      }
+
+      /* JOB CARD */
+      .job-card {
+        background: white;
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: 0 10px 28px rgba(37, 99, 235, 0.08);
+        transition: 0.3s;
+        border: 1px solid transparent;
+      }
+
+      .job-card:hover {
+        transform: translateY(-4px);
+        border-color: #2563eb;
+      }
+
+      .job-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .job-title h2 {
+        margin: 0;
+        color: #1e3a8a;
+        font-size: 24px;
+      }
+
+      .job-title p {
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      .deadline {
+        background: #eff6ff;
+        color: #2563eb;
+        padding: 10px 16px;
+        border-radius: 40px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .job-tags {
+        margin-top: 22px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tag {
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 8px 14px;
+        border-radius: 40px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .job-desc {
+        margin-top: 22px;
+        line-height: 1.8;
+        color: #475569;
+        font-size: 14px;
+      }
+
+      .job-bottom {
+        margin-top: 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .salary {
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      .apply-btn {
+        background: linear-gradient(135deg, #2563eb, #1e3a8a);
+        color: white;
+        padding: 14px 28px;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        transition: 0.3s;
+      }
+
+      .apply-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+      }
+
+      /* FOOTER */
+      .footer {
+        margin-top: 50px;
+        background: #0f172a;
+        color: white;
+        padding: 45px 25px;
+        text-align: center;
+      }
+
+      .footer h2 {
+        margin-top: 0;
+      }
+
+      .footer p {
+        opacity: 0.8;
+        max-width: 800px;
+        margin: auto;
+        line-height: 1.8;
+      }
+
+      /* MOBILE */
+      @media (max-width: 1100px) {
+        .main-container {
+          grid-template-columns: 1fr;
+        }
+
+        .top-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .search-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .hero h2 {
+          font-size: 32px;
+        }
+
+        .top-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .job-top {
+          flex-direction: column;
+        }
+
+        .job-bottom {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 18px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- TOP BANNER -->
+    <a
+      href="index.html"
+      style="
+        text-decoration: none;
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      "
+    >
+      <div
+        style="
+          background: linear-gradient(135deg, #0f172a, #2563eb);
+          padding: 16px 20px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+          cursor: pointer;
+          transition: 0.3s;
+        "
+      >
+        <div
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #2563eb;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+          "
+        >
+          <span style="font-size: 16px">⬆</span>
+          <span>Back to Home</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="logo">
+        <h1>MASCO Career Portal</h1>
+        <p>Explore Opportunities & Build Your Career</p>
+      </div>
+
+      <a href="#" class="nav-btn">Back to Home</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h2>Find Your Dream Job at MASCO Group</h2>
+
+      <p>
+        Explore all available job openings across multiple departments,
+        companies, and business units. Apply easily and build your professional
+        future with MASCO Group.
+      </p>
+    </section>
+
+    <!-- SEARCH -->
+    <div class="search-section">
+      <div class="search-grid">
+        <input type="text" placeholder="Search by designation..." />
+
+        <select>
+          <option>All Departments</option>
+          <option>Information Technology</option>
+          <option>Human Resources</option>
+          <option>Accounts & Finance</option>
+          <option>Marketing & Sales</option>
+        </select>
+
+        <select>
+          <option>All Locations</option>
+          <option>Dhaka</option>
+          <option>Gazipur</option>
+          <option>Chattogram</option>
+        </select>
+
+        <button class="search-btn">Search Jobs</button>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <h3>Browse Categories</h3>
+
+        <div class="filter-title">Job Categories</div>
+
+        <div class="category">Software Engineering</div>
+        <div class="category">HR & Administration</div>
+        <div class="category">Accounts & Finance</div>
+        <div class="category">Data Analysis</div>
+        <div class="category">Production & Factory</div>
+        <div class="category">Marketing & Branding</div>
+        <div class="category">Supply Chain</div>
+        <div class="category">Management Trainee</div>
+
+        <div class="filter-title">Job Type</div>
+
+        <div class="category">Full Time</div>
+        <div class="category">Part Time</div>
+        <div class="category">Internship</div>
+        <div class="category">Contractual</div>
+
+        <div class="filter-title">Experience</div>
+
+        <div class="category">Freshers</div>
+        <div class="category">1 - 3 Years</div>
+        <div class="category">3 - 5 Years</div>
+        <div class="category">Senior Level</div>
+      </div>
+
+      <!-- JOBS -->
+      <div class="jobs-area">
+        <!-- STATS -->
+        <div class="top-stats">
+          <div class="stat-box">
+            <h2>128</h2>
+            <p>Total Active Jobs</p>
+          </div>
+
+          <div class="stat-box">
+            <h2>15</h2>
+            <p>Departments</p>
+          </div>
+
+          <div class="stat-box">
+            <h2>8</h2>
+            <p>Companies</p>
+          </div>
+
+          <div class="stat-box">
+            <h2>25K+</h2>
+            <p>Applicants Applied</p>
+          </div>
+        </div>
+
+        <!-- JOB 1 -->
+        <div class="job-card">
+          <div class="job-top">
+            <div class="job-title">
+              <h2>Senior Software Engineer</h2>
+              <p>MASCO IT Division • Dhaka • Full Time</p>
+            </div>
+
+            <div class="deadline">Deadline: 30 June 2026</div>
+          </div>
+
+          <div class="job-tags">
+            <div class="tag">React</div>
+            <div class="tag">Node.js</div>
+            <div class="tag">SQL Server</div>
+            <div class="tag">API Development</div>
+            <div class="tag">5+ Years Experience</div>
+          </div>
+
+          <div class="job-desc">
+            We are looking for a skilled Software Engineer to develop enterprise
+            applications, HR management systems, and advanced reporting
+            solutions. Candidate should have strong problem-solving capability
+            and experience in modern web technologies.
+          </div>
+
+          <div class="job-bottom">
+            <div class="salary">Salary Range: BDT 80,000 - 120,000</div>
+
+            <a href="#" class="apply-btn">Apply Now</a>
+          </div>
+        </div>
+
+        <!-- JOB 2 -->
+        <div class="job-card">
+          <div class="job-top">
+            <div class="job-title">
+              <h2>HR Officer</h2>
+              <p>MASCO HR Division • Gazipur • Full Time</p>
+            </div>
+
+            <div class="deadline">Deadline: 18 June 2026</div>
+          </div>
+
+          <div class="job-tags">
+            <div class="tag">Recruitment</div>
+            <div class="tag">Attendance Management</div>
+            <div class="tag">HRIS</div>
+            <div class="tag">MS Excel</div>
+          </div>
+
+          <div class="job-desc">
+            Responsible for recruitment processing, employee documentation,
+            leave management, attendance monitoring, and HR reporting. Strong
+            communication and coordination skills are required.
+          </div>
+
+          <div class="job-bottom">
+            <div class="salary">Salary Range: BDT 35,000 - 50,000</div>
+
+            <a href="#" class="apply-btn">Apply Now</a>
+          </div>
+        </div>
+
+        <!-- JOB 3 -->
+        <div class="job-card">
+          <div class="job-top">
+            <div class="job-title">
+              <h2>Data Analyst</h2>
+              <p>MASCO Analytics Team • Dhaka • Full Time</p>
+            </div>
+
+            <div class="deadline">Deadline: 12 July 2026</div>
+          </div>
+
+          <div class="job-tags">
+            <div class="tag">Power BI</div>
+            <div class="tag">SQL</div>
+            <div class="tag">Dashboard</div>
+            <div class="tag">Reporting</div>
+          </div>
+
+          <div class="job-desc">
+            Candidate will prepare analytical dashboards, KPI reports, and
+            business insights for management decision-making. Experience in SQL
+            and Power BI will get priority.
+          </div>
+
+          <div class="job-bottom">
+            <div class="salary">Salary Range: BDT 45,000 - 70,000</div>
+
+            <a href="#" class="apply-btn">Apply Now</a>
+          </div>
+        </div>
+
+        <!-- JOB 4 -->
+        <div class="job-card">
+          <div class="job-top">
+            <div class="job-title">
+              <h2>Accounts Executive</h2>
+              <p>Finance Department • Chattogram • Full Time</p>
+            </div>
+
+            <div class="deadline">Deadline: 28 June 2026</div>
+          </div>
+
+          <div class="job-tags">
+            <div class="tag">VAT & TAX</div>
+            <div class="tag">ERP</div>
+            <div class="tag">Financial Reporting</div>
+          </div>
+
+          <div class="job-desc">
+            Candidate will maintain accounting records, prepare financial
+            statements, support VAT & TAX activities, and coordinate with audit
+            teams.
+          </div>
+
+          <div class="job-bottom">
+            <div class="salary">Salary Range: BDT 40,000 - 60,000</div>
+
+            <a href="#" class="apply-btn">Apply Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <h2>Join MASCO Group</h2>
+
+      <p>
+        We believe in innovation, teamwork, professionalism, and continuous
+        growth. Explore opportunities and become part of one of the leading
+        business groups in Bangladesh.
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Status Tracking - ATS</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: #eef4ff;
+        color: #1f2a44;
+      }
+
+      /* HEADER */
+      .header {
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .header small {
+        opacity: 0.9;
+      }
+
+      /* LAYOUT */
+      .container {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        min-height: calc(100vh - 60px);
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        background: white;
+        padding: 18px;
+        border-right: 1px solid #e6eaf2;
+      }
+
+      .profile {
+        text-align: center;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #eef2f7;
+      }
+
+      .profile img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 3px solid #dbeafe;
+      }
+
+      .profile h2 {
+        margin: 10px 0 5px;
+        font-size: 17px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        background: #dbeafe;
+        color: #1e3a8a;
+        border-radius: 20px;
+        font-size: 11px;
+      }
+
+      .info-box {
+        margin-top: 12px;
+        padding: 12px;
+        background: #f8fbff;
+        border-radius: 10px;
+        font-size: 13px;
+      }
+
+      .info-box b {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      /* MAIN */
+      .main {
+        padding: 18px;
+      }
+
+      /* SUMMARY */
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .card {
+        background: white;
+        padding: 15px;
+        border-radius: 14px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .card h2 {
+        margin: 0;
+        color: #2563eb;
+      }
+
+      .card small {
+        color: #6b7280;
+      }
+
+      /* FILTER */
+      .filter {
+        background: white;
+        padding: 15px;
+        border-radius: 14px;
+        margin-bottom: 18px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dbeafe;
+        border-radius: 8px;
+        margin-top: 8px;
+        font-size: 13px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 11px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      /* APPLICATION CARD */
+      .application {
+        background: white;
+        padding: 18px;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+        margin-bottom: 18px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+
+      .top h3 {
+        margin: 0;
+        color: #1e3a8a;
+      }
+
+      .status {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        color: white;
+      }
+
+      .review {
+        background: #f59e0b;
+      }
+      .shortlisted {
+        background: #16a34a;
+      }
+      .rejected {
+        background: #dc2626;
+      }
+
+      /* TRACKER */
+      .timeline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 18px;
+        height: 4px;
+        background: #dbeafe;
+        z-index: 0;
+      }
+
+      .step {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        width: 18%;
+      }
+
+      .circle {
+        width: 36px;
+        height: 36px;
+        background: #dbeafe;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1e3a8a;
+      }
+
+      .active .circle {
+        background: #2563eb;
+        color: white;
+      }
+
+      .completed .circle {
+        background: #16a34a;
+        color: white;
+      }
+
+      .step small {
+        display: block;
+        margin-top: 8px;
+        font-size: 11px;
+        color: #4b5563;
+      }
+
+      /* ACTIONS */
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 10px 14px;
+        border: none;
+        border-radius: 10px;
+        font-size: 13px;
+        cursor: pointer;
+        font-weight: 600;
+        color: white;
+      }
+
+      .view {
+        background: #2563eb;
+      }
+      .withdraw {
+        background: #dc2626;
+      }
+      .message {
+        background: #0ea5e9;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 950px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          border-right: none;
+          border-bottom: 1px solid #e6eaf2;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline {
+          gap: 15px;
+        }
+
+        .step {
+          width: 30%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOP BANNER -->
+    <a
+      href="index.html"
+      style="
+        text-decoration: none;
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      "
+    >
+      <div
+        style="
+          background: linear-gradient(135deg, #0f172a, #2563eb);
+          padding: 16px 20px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+          cursor: pointer;
+          transition: 0.3s;
+        "
+      >
+        <div
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #2563eb;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+          "
+        >
+          <span style="font-size: 16px">⬆</span>
+          <span>Back to Home</span>
+        </div>
+      </div>
+    </a>
+
+    <div class="header">
+      <div>
+        <h1>Application Status Tracking</h1>
+        <small>Track Recruitment Progress in Real-Time</small>
+      </div>
+      <div>Applicant Dashboard</div>
+    </div>
+
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="profile">
+          <img src="images/photo.png" />
+          <h2>Tanvir Ahmed</h2>
+          <span class="badge">Applicant ID: ATS-2026-015</span>
+        </div>
+
+        <div class="info-box">
+          <b>Total Applications</b>
+          8 Applications Submitted
+        </div>
+
+        <div class="info-box">
+          <b>Shortlisted</b>
+          3 Applications
+        </div>
+
+        <div class="info-box">
+          <b>Upcoming Interview</b>
+          16 May 2026 - 11:00 AM
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="main">
+        <!-- SUMMARY -->
+        <div class="summary-grid">
+          <div class="card">
+            <h2>8</h2>
+            <small>Total Applied Jobs</small>
+          </div>
+
+          <div class="card">
+            <h2>3</h2>
+            <small>Shortlisted</small>
+          </div>
+
+          <div class="card">
+            <h2>2</h2>
+            <small>Interview Running</small>
+          </div>
+
+          <div class="card">
+            <h2>1</h2>
+            <small>Final Selected</small>
+          </div>
+        </div>
+
+        <!-- FILTER -->
+        <div class="filter">
+          <b>Filter Application Status</b>
+          <input type="text" placeholder="Search job title" />
+          <select>
+            <option>All Status</option>
+            <option>Under Review</option>
+            <option>Shortlisted</option>
+            <option>Interview Stage</option>
+            <option>Rejected</option>
+            <option>Selected</option>
+          </select>
+          <button class="btn">Apply Filter</button>
+        </div>
+
+        <!-- APPLICATION CARD -->
+        <div class="application">
+          <div class="top">
+            <div>
+              <h3>MIS Executive</h3>
+              <small>Applied on: 10 May 2026</small>
+            </div>
+            <span class="status shortlisted">Shortlisted</span>
+          </div>
+
+          <p>
+            Your application has passed initial screening and you are
+            shortlisted for the interview stage.
+          </p>
+
+          <!-- TIMELINE -->
+          <div class="timeline">
+            <div class="step completed">
+              <div class="circle">1</div>
+              <small>Application Submitted</small>
+            </div>
+
+            <div class="step completed">
+              <div class="circle">2</div>
+              <small>CV Screening</small>
+            </div>
+
+            <div class="step active">
+              <div class="circle">3</div>
+              <small>Interview</small>
+            </div>
+
+            <div class="step">
+              <div class="circle">4</div>
+              <small>HR Approval</small>
+            </div>
+
+            <div class="step">
+              <div class="circle">5</div>
+              <small>Final Selection</small>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="action-btn view">View Job Details</button>
+            <button class="action-btn message">Message HR</button>
+            <button class="action-btn withdraw">Withdraw Application</button>
+          </div>
+        </div>
+
+        <!-- SECOND APPLICATION -->
+        <div class="application">
+          <div class="top">
+            <div>
+              <h3>Data Analyst</h3>
+              <small>Applied on: 05 May 2026</small>
+            </div>
+            <span class="status review">Under Review</span>
+          </div>
+
+          <p>
+            Your application is currently under evaluation by the recruitment
+            team.
+          </p>
+
+          <div class="timeline">
+            <div class="step completed">
+              <div class="circle">1</div>
+              <small>Application Submitted</small>
+            </div>
+
+            <div class="step active">
+              <div class="circle">2</div>
+              <small>CV Screening</small>
+            </div>
+
+            <div class="step">
+              <div class="circle">3</div>
+              <small>Interview</small>
+            </div>
+
+            <div class="step">
+              <div class="circle">4</div>
+              <small>HR Approval</small>
+            </div>
+
+            <div class="step">
+              <div class="circle">5</div>
+              <small>Final Selection</small>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="action-btn view">View Job Details</button>
+            <button class="action-btn message">Message HR</button>
+            <button class="action-btn withdraw">Withdraw Application</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

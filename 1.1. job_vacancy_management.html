@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Vacancy Management - ATS</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: #eef4ff;
+        color: #1f2a44;
+      }
+
+      /* HEADER */
+
+      .header {
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        padding: 18px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .header small {
+        opacity: 0.9;
+      }
+
+      /* LAYOUT */
+
+      .container {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        min-height: calc(100vh - 74px);
+      }
+
+      /* SIDEBAR */
+
+      .sidebar {
+        background: white;
+        padding: 22px;
+        border-right: 1px solid #e5eaf2;
+      }
+
+      .sidebar h3 {
+        margin-top: 0;
+        margin-bottom: 18px;
+        color: #1e3a8a;
+      }
+
+      .stat-card {
+        background: #f8fbff;
+        padding: 16px;
+        border-radius: 14px;
+        margin-bottom: 14px;
+        border: 1px solid #dbeafe;
+      }
+
+      .stat-card h2 {
+        margin: 0;
+        color: #2563eb;
+      }
+
+      .stat-card small {
+        color: #64748b;
+      }
+
+      .quick-btn {
+        width: 100%;
+        padding: 13px;
+        background: linear-gradient(135deg, #2563eb, #1e3a8a);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 12px;
+        transition: 0.3s;
+      }
+
+      .quick-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      /* MAIN */
+
+      .main {
+        padding: 24px;
+      }
+
+      .form-box {
+        background: white;
+        padding: 28px;
+        border-radius: 24px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.05);
+      }
+
+      .form-box h2 {
+        margin-top: 0;
+        margin-bottom: 28px;
+        color: #1e3a8a;
+        font-size: 24px;
+      }
+
+      .section {
+        margin-bottom: 35px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid #e5eaf2;
+      }
+
+      .section-title {
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #1e3a8a;
+        font-size: 18px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .row-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .full-row {
+        width: 100%;
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #334155;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #dbeafe;
+        border-radius: 12px;
+        background: #f8fbff;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+      }
+
+      textarea {
+        height: 150px;
+        resize: vertical;
+      }
+
+      /* SKILL TAG SYSTEM */
+
+      .skills-wrapper {
+        border: 1px solid #dbeafe;
+        background: #f8fbff;
+        border-radius: 14px;
+        padding: 12px;
+        min-height: 60px;
+        transition: 0.3s;
+      }
+
+      .skills-wrapper:focus-within {
+        border-color: #2563eb;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+      }
+
+      .skills-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .skill-tag {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: white;
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .skill-tag span {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .skill-input {
+        border: none;
+        background: transparent;
+        outline: none;
+        padding: 10px 4px;
+        font-size: 14px;
+        min-width: 220px;
+        flex: 1;
+      }
+
+      .skill-note {
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 8px;
+      }
+
+      /* BUTTONS */
+
+      .action-bar {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 25px;
+      }
+
+      .btn {
+        padding: 14px 22px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .publish {
+        background: #16a34a;
+        color: white;
+      }
+
+      .draft {
+        background: #f59e0b;
+        color: white;
+      }
+
+      .reset {
+        background: #dc2626;
+        color: white;
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 1100px) {
+        .row-3 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 950px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          border-right: none;
+          border-bottom: 1px solid #e5eaf2;
+        }
+
+        .row,
+        .row-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <!-- TOP BANNER -->
+    <a
+      href="index.html"
+      style="
+        text-decoration: none;
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      "
+    >
+      <div
+        style="
+          background: linear-gradient(135deg, #0f172a, #2563eb);
+          padding: 16px 20px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+          cursor: pointer;
+          transition: 0.3s;
+        "
+      >
+        <div
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #2563eb;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+          "
+        >
+          <span style="font-size: 16px">⬆</span>
+          <span>Back to Home</span>
+        </div>
+      </div>
+    </a>
+
+    <div class="header">
+      <div>
+        <h1>Job Vacancy Management</h1>
+        <small>HR Recruitment & Vacancy Creation Panel</small>
+      </div>
+
+      <div>HR Dashboard</div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+
+    <div class="container">
+      <!-- SIDEBAR -->
+
+      <div class="sidebar">
+        <h3>Vacancy Overview</h3>
+
+        <div class="stat-card">
+          <h2>45</h2>
+          <small>Total Active Vacancies</small>
+        </div>
+
+        <div class="stat-card">
+          <h2>12</h2>
+          <small>Draft Vacancies</small>
+        </div>
+
+        <div class="stat-card">
+          <h2>08</h2>
+          <small>Expired Vacancies</small>
+        </div>
+
+        <a href="1.1.1. job_list_management.html"
+          ><button class="quick-btn">Manage all Jobs</button></a
+        >
+        <!-- <button class="quick-btn">View Applicant List</button> -->
+      </div>
+
+      <!-- MAIN CONTENT -->
+
+      <div class="main">
+        <div class="form-box">
+          <h2>Create / Update Job Vacancy</h2>
+
+          <!-- BASIC INFORMATION -->
+
+          <div class="section">
+            <h3 class="section-title">Basic Information</h3>
+
+            <div class="row">
+              <div>
+                <label>Requisition ID</label>
+                <input type="text" placeholder="REQ-2026-001" />
+              </div>
+
+              <div>
+                <label>Job Title</label>
+                <input type="text" placeholder="Enter job title" />
+              </div>
+            </div>
+
+            <div class="row-3">
+              <div>
+                <label>Job Category</label>
+
+                <select>
+                  <option>Select Category</option>
+                  <option>IT</option>
+                  <option>HR</option>
+                  <option>Accounts</option>
+                  <option>Marketing</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Job Level</label>
+
+                <select>
+                  <option>Select Level</option>
+                  <option>Entry Level</option>
+                  <option>Mid Level</option>
+                  <option>Senior Level</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Job Nature</label>
+
+                <select>
+                  <option>Select Nature</option>
+                  <option>Full-Time</option>
+                  <option>Part-Time</option>
+                  <option>Contractual</option>
+                  <option>Internship</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- ORGANIZATIONAL INFORMATION -->
+
+          <div class="section">
+            <h3 class="section-title">Organizational Information</h3>
+
+            <div class="row-3">
+              <div>
+                <label>Department</label>
+
+                <select>
+                  <option>Select Department</option>
+                  <option>MIS</option>
+                  <option>Accounts</option>
+                  <option>HR</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Unit</label>
+
+                <input type="text" placeholder="Enter business unit" />
+              </div>
+
+              <div>
+                <label>Company</label>
+
+                <input type="text" placeholder="MASCO Group" />
+              </div>
+            </div>
+
+            <div class="row-3">
+              <div>
+                <label>Job Location</label>
+
+                <input type="text" placeholder="Dhaka, Bangladesh" />
+              </div>
+
+              <div>
+                <label>Job Type</label>
+
+                <select>
+                  <option>Select Type</option>
+                  <option>Remote</option>
+                  <option>Onsite</option>
+                  <option>Hybrid</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Job Deadline</label>
+
+                <input type="date" />
+              </div>
+            </div>
+          </div>
+
+          <!-- COMPENSATION -->
+
+          <div class="section">
+            <h3 class="section-title">Compensation & Eligibility</h3>
+
+            <div class="row">
+              <div>
+                <label>Job Salary Range</label>
+
+                <input type="text" placeholder="40,000 - 60,000 BDT" />
+              </div>
+
+              <div>
+                <label>Preferred Age</label>
+
+                <input type="text" placeholder="25 - 35 Years" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label>Educational Requirements</label>
+
+                <input type="text" placeholder="Bachelor's / Master's Degree" />
+              </div>
+
+              <div>
+                <label>Benefits & Facilities</label>
+
+                <input
+                  type="text"
+                  placeholder="Bonus, Insurance, Lunch Facilities"
+                />
+              </div>
+            </div>
+
+            <!-- REQUIRED SKILLS -->
+
+            <div class="full-row">
+              <label>Required Skills</label>
+
+              <div class="skills-wrapper">
+                <div class="skills-container" id="skillsContainer">
+                  <input
+                    type="text"
+                    id="skillInput"
+                    class="skill-input"
+                    placeholder="Type a skill and press Enter"
+                  />
+                </div>
+              </div>
+
+              <div class="skill-note">
+                Example: Excel, SQL, Communication, Leadership, Power BI
+              </div>
+            </div>
+          </div>
+
+          <!-- JOB DESCRIPTION -->
+
+          <div class="section">
+            <h3 class="section-title">Vacancy Description</h3>
+
+            <div>
+              <label>Detailed Job Description</label>
+
+              <textarea
+                placeholder="Write complete job responsibilities, required skills, experience, and additional instructions..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- ACTION BUTTONS -->
+
+          <div class="action-bar">
+            <button class="btn publish">Publish Vacancy</button>
+
+            <button class="btn draft">Save as Draft</button>
+
+            <button class="btn reset">Reset Form</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+      const skillInput = document.getElementById("skillInput");
+      const skillsContainer = document.getElementById("skillsContainer");
+
+      skillInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && skillInput.value.trim() !== "") {
+          e.preventDefault();
+
+          const skillText = skillInput.value.trim();
+
+          const tag = document.createElement("div");
+          tag.className = "skill-tag";
+
+          tag.innerHTML = `
+            ${skillText}
+            <span onclick="removeSkill(this)">×</span>
+          `;
+
+          skillsContainer.insertBefore(tag, skillInput);
+
+          skillInput.value = "";
+        }
+      });
+
+      function removeSkill(element) {
+        element.parentElement.remove();
+      }
+    </script>
+  </body>
+</html>

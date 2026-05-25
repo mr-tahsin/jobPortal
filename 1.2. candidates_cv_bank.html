@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV Bank - HireSphere</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        background: #eef4ff;
+        color: #1f2a44;
+      }
+
+      /* TOP NAV */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 20px;
+        background: linear-gradient(135deg, #0f172a, #2563eb);
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+
+      .logo {
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .search {
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+      }
+
+      .icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      /* LAYOUT */
+      .container {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        background: white;
+        min-height: 100vh;
+        padding: 18px;
+        border-right: 1px solid #e5eaf2;
+      }
+
+      .menu-title {
+        font-size: 12px;
+        color: #64748b;
+        margin: 10px 0;
+      }
+
+      .menu-item {
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+
+      .menu-item.active {
+        background: #2563eb;
+        color: white;
+      }
+
+      /* MAIN */
+      .main {
+        padding: 18px;
+      }
+
+      /* BREADCRUMB */
+      .breadcrumb {
+        font-size: 13px;
+        color: #64748b;
+        margin-bottom: 14px;
+      }
+
+      /* STATS */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .card {
+        background: white;
+        padding: 14px;
+        border-radius: 14px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .card h2 {
+        margin: 0;
+        color: #2563eb;
+      }
+
+      .card small {
+        color: #64748b;
+      }
+
+      /* FILTER */
+      .filters {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      input,
+      select {
+        padding: 10px;
+        border: 1px solid #dbeafe;
+        border-radius: 10px;
+        background: white;
+      }
+
+      /* CARDS */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .cv-card {
+        background: white;
+        padding: 14px;
+        border-radius: 14px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .name {
+        font-weight: 700;
+      }
+
+      .title {
+        font-size: 13px;
+        color: #64748b;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+      }
+
+      .skill {
+        font-size: 11px;
+        padding: 4px 8px;
+        background: #dbeafe;
+        border-radius: 20px;
+      }
+
+      .status {
+        margin-top: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #16a34a;
+      }
+
+      .btns {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .btn {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .view {
+        background: #2563eb;
+        color: white;
+      }
+
+      .shortlist {
+        background: #16a34a;
+        color: white;
+      }
+
+      /* PAGINATION */
+      .pagination {
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+      }
+
+      @media (max-width: 1100px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 700px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- TOP BANNER -->
+    <a
+      href="index.html"
+      style="
+        text-decoration: none;
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      "
+    >
+      <div
+        style="
+          background: linear-gradient(135deg, #0f172a, #2563eb);
+          padding: 16px 20px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+          cursor: pointer;
+          transition: 0.3s;
+        "
+      >
+        <div
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #2563eb;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+          "
+        >
+          <span style="font-size: 16px">⬆</span>
+          <span>Back to Home</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="logo">MASCO CV Bank</div>
+
+      <div class="nav-actions">
+        <input class="search" placeholder="Search CV..." />
+        <div class="icon">🔔</div>
+        <div class="icon">👤</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="menu-title">Talent</div>
+        <div class="menu-item">Dashboard</div>
+        <div class="menu-item active">CV Bank</div>
+        <div class="menu-item">Shortlisted</div>
+        <div class="menu-item">Interviews</div>
+        <div class="menu-item">Settings</div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="main">
+        <div class="breadcrumb">Home > Talent > CV Bank</div>
+
+        <!-- STATS -->
+        <div class="stats">
+          <div class="card">
+            <h2>4,218</h2>
+            <small>Total CVs</small>
+          </div>
+
+          <div class="card">
+            <h2>263</h2>
+            <small>New This Month</small>
+          </div>
+
+          <div class="card">
+            <h2>1,847</h2>
+            <small>Active Candidates</small>
+          </div>
+
+          <div class="card">
+            <h2>89</h2>
+            <small>Shortlisted</small>
+          </div>
+        </div>
+
+        <!-- FILTER -->
+        <div class="filters">
+          <input placeholder="Search candidate..." />
+          <select>
+            <option>Department</option>
+          </select>
+          <select>
+            <option>Experience</option>
+          </select>
+          <select>
+            <option>Status</option>
+          </select>
+        </div>
+
+        <!-- GRID -->
+        <div class="grid">
+          <!-- CARD -->
+          <div class="cv-card">
+            <div class="name">Arif Hossain</div>
+            <div class="title">Software Engineer - Dhaka</div>
+
+            <div class="skills">
+              <div class="skill">JavaScript</div>
+              <div class="skill">React</div>
+              <div class="skill">Node.js</div>
+            </div>
+
+            <div class="status">Available</div>
+
+            <div class="btns">
+              <button class="btn view">View CV</button>
+              <button class="btn shortlist">Shortlist</button>
+            </div>
+          </div>
+
+          <div class="cv-card">
+            <div class="name">Nusrat Jahan</div>
+            <div class="title">HR Executive</div>
+            <div class="skills">
+              <div class="skill">Recruitment</div>
+              <div class="skill">HRMS</div>
+            </div>
+            <div class="status">Open to Work</div>
+            <div class="btns">
+              <button class="btn view">View CV</button>
+              <button class="btn shortlist">Shortlist</button>
+            </div>
+          </div>
+
+          <div class="cv-card">
+            <div class="name">Tanvir Ahmed</div>
+            <div class="title">Data Analyst</div>
+            <div class="skills">
+              <div class="skill">SQL</div>
+              <div class="skill">Power BI</div>
+            </div>
+            <div class="status">Passive</div>
+            <div class="btns">
+              <button class="btn view">View CV</button>
+              <button class="btn shortlist">Shortlist</button>
+            </div>
+          </div>
+
+          <!-- EXTRA CARDS -->
+          <div class="cv-card">
+            <div class="name">Sadia Islam</div>
+            <div class="title">Marketing Specialist</div>
+            <div class="skills">
+              <div class="skill">SEO</div>
+              <div class="skill">Ads</div>
+            </div>
+            <div class="status">Available</div>
+            <div class="btns">
+              <button class="btn view">View CV</button>
+              <button class="btn shortlist">Shortlist</button>
+            </div>
+          </div>
+
+          <div class="cv-card">
+            <div class="name">Imran Khan</div>
+            <div class="title">UI/UX Designer</div>
+            <div class="skills">
+              <div class="skill">Figma</div>
+              <div class="skill">UI Design</div>
+            </div>
+            <div class="status">Open to Work</div>
+            <div class="btns">
+              <button class="btn view">View CV</button>
+              <button class="btn shortlist">Shortlist</button>
+            </div>
+          </div>
+
+          <div class="cv-card">
+            <div class="name">Mehedi Hasan</div>
+            <div class="title">Accountant</div>
+            <div class="skills">
+              <div class="skill">Tally</div>
+              <div class="skill">Excel</div>
+            </div>
+            <div class="status">Available</div>
+            <div class="btns">
+              <button class="btn view">View CV</button>
+              <button class="btn shortlist">Shortlist</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pagination">
+          <div>Showing 1–6 of 4,218 candidates</div>
+          <div>Prev | 1 | 2 | 3 | Next</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

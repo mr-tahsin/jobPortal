@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blacklisted Applicants Management</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        background: #eef4ff;
+      }
+
+      /* TOP */
+      .topbar {
+        background: linear-gradient(135deg, #0f172a, #2563eb);
+        color: white;
+        padding: 14px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .search {
+        width: 260px;
+        padding: 8px;
+        border: none;
+        border-radius: 8px;
+      }
+
+      /* LAYOUT */
+      .container {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        min-height: 100vh;
+      }
+
+      /* FILTER */
+      .sidebar {
+        background: white;
+        padding: 16px;
+        border-right: 1px solid #e5eaf2;
+      }
+
+      .sidebar input,
+      .sidebar select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #dbeafe;
+        border-radius: 10px;
+        background: #f8fbff;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 10px;
+        margin-top: 12px;
+        border: none;
+        border-radius: 10px;
+        background: #dc2626;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* MAIN */
+      .main {
+        padding: 16px;
+        overflow: auto;
+      }
+
+      /* TABLE */
+      .table-box {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1000px;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        font-size: 12px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+      }
+
+      th {
+        background: #eff6ff;
+        color: #1e3a8a;
+        text-transform: uppercase;
+        font-size: 11px;
+      }
+
+      /* BADGES */
+      .badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        color: white;
+        font-weight: 600;
+      }
+
+      .high {
+        background: #dc2626;
+      }
+      .medium {
+        background: #f59e0b;
+      }
+      .low {
+        background: #3b82f6;
+      }
+
+      /* ACTION */
+      .actions button {
+        border: none;
+        padding: 6px 8px;
+        margin: 2px;
+        border-radius: 8px;
+        font-size: 11px;
+        color: white;
+        cursor: pointer;
+      }
+
+      .view {
+        background: #2563eb;
+      }
+      .unblock {
+        background: #16a34a;
+      }
+      .delete {
+        background: #dc2626;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- TOP BANNER -->
+    <a
+      href="index.html"
+      style="
+        text-decoration: none;
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      "
+    >
+      <div
+        style="
+          background: linear-gradient(135deg, #0f172a, #2563eb);
+          padding: 16px 20px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+          cursor: pointer;
+          transition: 0.3s;
+        "
+      >
+        <div
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #2563eb;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+          "
+        >
+          <span style="font-size: 16px">⬆</span>
+          <span>Back to Home</span>
+        </div>
+      </div>
+    </a>
+
+    <div class="topbar">
+      <div><b>Blacklisted Applicants Management</b></div>
+      <input
+        class="search"
+        id="globalSearch"
+        placeholder="Global search..."
+        oninput="render()"
+      />
+    </div>
+
+    <div class="container">
+      <!-- FILTER -->
+      <div class="sidebar">
+        <h3>Filters</h3>
+
+        <input id="search" placeholder="Name / NID" oninput="render()" />
+
+        <select id="dept" onchange="render()">
+          <option value="">Department</option>
+          <option>IT</option>
+          <option>HR</option>
+          <option>Accounts</option>
+          <option>Marketing</option>
+        </select>
+
+        <select id="reason" onchange="render()">
+          <option value="">Reason</option>
+          <option>Fraud Activity</option>
+          <option>Fake CV</option>
+          <option>Misconduct</option>
+          <option>Interview Failure</option>
+        </select>
+
+        <select id="severity" onchange="render()">
+          <option value="">Severity</option>
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
+
+        <button class="btn" onclick="reset()">Reset</button>
+      </div>
+
+      <!-- TABLE -->
+      <div class="main">
+        <div class="table-box">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>NID</th>
+                <th>Department</th>
+                <th>Reason</th>
+                <th>Severity</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let reasons = [
+        "Fraud Activity",
+        "Fake CV",
+        "Misconduct",
+        "Interview Failure",
+      ];
+      let depts = ["IT", "HR", "Accounts", "Marketing"];
+      let severity = ["High", "Medium", "Low"];
+
+      let data = [];
+
+      for (let i = 0; i < 25; i++) {
+        data.push({
+          id: "BLK-" + (1000 + i),
+          name: "Candidate " + (i + 1),
+          nid: 278124558000 + i,
+          dept: depts[i % 4],
+          reason: reasons[i % 4],
+          severity: severity[i % 3],
+          date: "2026-05-" + ((i % 28) + 1),
+        });
+      }
+
+      /* FILTER */
+      function render() {
+        let gSearch = document
+          .getElementById("globalSearch")
+          .value.toLowerCase();
+        let search = document.getElementById("search").value.toLowerCase();
+        let dept = document.getElementById("dept").value;
+        let reason = document.getElementById("reason").value;
+        let severityF = document.getElementById("severity").value;
+
+        let tbody = document.getElementById("body");
+        tbody.innerHTML = "";
+
+        let filtered = data.filter((d) => {
+          return (
+            (!gSearch ||
+              d.name.toLowerCase().includes(gSearch) ||
+              d.id.toLowerCase().includes(gSearch) ||
+              d.nid.toLowerCase().includes(gSearch)) &&
+            (!search ||
+              d.name.toLowerCase().includes(search) ||
+              d.nid.toLowerCase().includes(search)) &&
+            (!dept || d.dept === dept) &&
+            (!reason || d.reason === reason) &&
+            (!severityF || d.severity === severityF)
+          );
+        });
+
+        filtered.forEach((d) => {
+          tbody.innerHTML += `
+<tr>
+<td>${d.id}</td>
+<td>${d.name}</td>
+<td>${d.nid}</td>
+<td>${d.dept}</td>
+<td>${d.reason}</td>
+<td><span class="badge ${d.severity.toLowerCase()}">${d.severity}</span></td>
+<td>${d.date}</td>
+<td class="actions">
+<button class="view">View</button>
+<button class="unblock">Unblock</button>
+<button class="delete">Delete</button>
+</td>
+</tr>
+`;
+        });
+      }
+
+      function reset() {
+        document
+          .querySelectorAll("input,select")
+          .forEach((e) => (e.value = ""));
+        render();
+      }
+
+      render();
+    </script>
+  </body>
+</html>

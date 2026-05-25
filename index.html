@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MASCO ATS Navigation</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Inter, sans-serif;
+        background: #eef4ff;
+        color: #1f2a44;
+      }
+
+      /* MAIN LAYOUT */
+      .layout {
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        min-height: 100vh;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        background: white;
+        border-right: 1px solid #dbeafe;
+        padding: 22px;
+        overflow-y: auto;
+      }
+
+      .logo {
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        padding: 18px;
+        border-radius: 18px;
+        margin-bottom: 24px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18);
+      }
+
+      .logo h1 {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      .logo small {
+        opacity: 0.9;
+      }
+
+      /* SEGMENTS */
+      .segment {
+        margin-bottom: 28px;
+      }
+
+      .segment-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #dbeafe;
+      }
+
+      /* MENU */
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .menu a {
+        text-decoration: none;
+        background: #f8fbff;
+        padding: 14px 16px;
+        border-radius: 14px;
+        color: #1f2a44;
+        font-size: 14px;
+        font-weight: 500;
+        transition: 0.25s;
+        border: 1px solid transparent;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+      }
+
+      .menu a:hover {
+        background: #2563eb;
+        color: white;
+        transform: translateX(5px);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+      }
+
+      /* RIGHT SIDE */
+      .content {
+        background: #eef4ff;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          border-right: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- LEFT MENU -->
+      <div class="sidebar">
+        <div class="logo">
+          <h1>MASCO Job Portal</h1>
+          <!-- <small>Recruitment Management System</small> -->
+        </div>
+
+        <!-- HR / ADMIN -->
+        <div class="segment">
+          <div class="segment-title">HR / Admin Portal</div>
+
+          <div class="menu">
+            <a href="1.1. job_vacancy_management.html"
+              >1. Job Vacancy Management</a
+            >
+            <a href="1.2. candidates_cv_bank.html">2. Candidates CV Bank</a>
+            <a href="1.3. cv_screening_analysis.html"
+              >3. CV Screening and Analysis</a
+            >
+            <a href="1.4. blacklisted_applicants_management.html"
+              >4. Blacklisted Applicants Management</a
+            >
+            <a href="1.5. communication_with_applicants.html"
+              >5. Communication with Applicants</a
+            >
+            <a href="1.6. interview_evaluation_scoring.html"
+              >6. Interview Evaluation and Scoring</a
+            >
+          </div>
+        </div>
+
+        <!-- APPLICANT -->
+        <div class="segment">
+          <div class="segment-title">Applicants Portal</div>
+
+          <div class="menu">
+            <a href="2.1. user_reg_login.html"
+              >1. User Registration and Login</a
+            >
+            <a href="2.2. profile_creation_update.html"
+              >2. Profile Management and Update</a
+            >
+            <a href="2.3. resume_profile_matching.html"
+              >3. Resume and Profile Matching</a
+            >
+            <a href="2.4. application_status_tracking.html"
+              >4. Application Status Tracking</a
+            >
+          </div>
+        </div>
+
+        <!-- WEBSITE -->
+        <div class="segment">
+          <div class="segment-title">Website (Career Page)</div>
+
+          <div class="menu">
+            <a href="3.1. photo_carousel.html">Career Page</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT BLANK SIDE -->
+      <div class="content"></div>
+    </div>
+  </body>
+</html>
